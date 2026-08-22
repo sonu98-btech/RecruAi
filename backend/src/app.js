@@ -45,7 +45,17 @@ export function createApp() {
   });
 
   app.use("/api", apiRoutes);
-  app.use(notFoundHandler);
+
+  if (env.isProduction) {
+    const distPath = path.resolve(process.cwd(), "../frontend/dist");
+    app.use(express.static(distPath));
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(distPath, "index.html"));
+    });
+  } else {
+    app.use(notFoundHandler);
+  }
+
   app.use(errorHandler);
 
   return app;
