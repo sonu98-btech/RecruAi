@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -7,6 +8,8 @@ import rateLimit from "express-rate-limit";
 import env from "./config/env.js";
 import apiRoutes from "./routes/index.js";
 import { errorHandler, notFoundHandler } from "./middleware/error.middleware.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export function createApp() {
   const app = express();
@@ -38,7 +41,7 @@ export function createApp() {
     }),
   );
 
-  app.use("/uploads", express.static(path.resolve(process.cwd(), "src/uploads")));
+  app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
 
   app.get("/health", (_req, res) => {
     res.json({ success: true, message: "OK", data: { service: "ai-calling-crm" } });
@@ -47,7 +50,7 @@ export function createApp() {
   app.use("/api", apiRoutes);
 
   if (env.isProduction) {
-    const distPath = path.resolve(process.cwd(), "../frontend/dist");
+    const distPath = path.resolve(__dirname, "../../frontend/dist");
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
