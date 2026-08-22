@@ -50,7 +50,7 @@ export function createApp() {
   app.use("/api", apiRoutes);
 
   if (env.isProduction) {
-    const distPath = path.resolve(__dirname, "../../frontend/dist");
+    const distPath = path.resolve(__dirname, "../dist");
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
