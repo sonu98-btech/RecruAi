@@ -1,0 +1,38 @@
+{
+  "name": "ai-calling-crm-backend",
+  "version": "1.0.0",
+  "description": "SaaS backend for AI Calling CRM — automated calling and recruitment platform",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/scripts/seed.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "saas",
+    "crm",
+    "recruitment",
+    "ai-calling",
+    "mern"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "multer": "^2.0.2",
+    "nodemailer": "^6.9.16",
+    "socket.io": "^4.8.1",
+    "twilio": "^6.1.0"
+  }
+}
