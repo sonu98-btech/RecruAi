@@ -13,6 +13,20 @@ import { triggerCall } from '../redux/slices/callSlice';
 import { useDispatch } from 'react-redux';
 import { candidateApi } from '../services/candidate.api';
 
+const getBackendOrigin = () => {
+  if (import.meta.env.VITE_API_URL) {
+    try {
+      return new URL(import.meta.env.VITE_API_URL).origin;
+    } catch {
+      return '';
+    }
+  }
+  if (import.meta.env.DEV) {
+    return 'http://localhost:5001';
+  }
+  return window.location.origin;
+};
+
 const Candidates = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -201,7 +215,7 @@ const Candidates = () => {
             <td className="px-6 py-4">
               {candidate.resumeUrl ? (
                 <a
-                  href={`http://localhost:5001${candidate.resumeUrl}`}
+                  href={`${getBackendOrigin()}${candidate.resumeUrl}`}
                   target="_blank"
                   rel="noreferrer"
                   className="text-xs text-zinc-300 hover:text-white underline font-medium"
